@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import Button from "../libs/ui/button/button.vue"
+</script>
+
 <template>
-  <div class="text-primary">Home page</div>
+  <Button>Hello</Button>
 </template>
