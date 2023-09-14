@@ -1,7 +1,9 @@
-<script lang="ts" setup>
-import Button from "../libs/ui/button/button.vue"
+<script lang="tsx" setup>
+import Button from "@/libs/ui/button.vue"
 </script>
 
 <template>
-  <Button>Hello</Button>
+  <div class="border-primary/50 rounded border border-dashed p-6">
+    <Button variant="primary" left-icon="hi-academic-cap"> Click </Button>
+  </div>
 </template>

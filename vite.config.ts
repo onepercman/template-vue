@@ -7,7 +7,9 @@ import { default as viteTsConfigPaths } from "vite-tsconfig-paths"
 export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
-    viteTsConfigPaths(),
+    viteTsConfigPaths({
+      loose: true,
+    }),
     vitePluginRadar({
       analytics: {
         id: loadEnv(mode, process.cwd()).VITE_GA_ID,
