@@ -1,7 +1,3 @@
-<script lang="tsx" setup>
-import Button from "@/libs/ui/button.vue"
-</script>
-
 <template>
   <div class="p-6">
     <div class="border-line rounded border p-6">
@@ -9,3 +5,11 @@ import Button from "@/libs/ui/button.vue"
     </div>
   </div>
 </template>
+
+<script lang="tsx" setup>
+import Button from "@/libs/ui/button.vue"
+import { ref } from "vue"
+
+const loading = ref(false)
+console.log("🚀 ~ file: home.vue:14 ~ loading:", loading.value)
+</script>

@@ -58,5 +58,5 @@ export interface ButtonProps {
 const { variant, shape, size, loading } = defineProps<ButtonProps>()
 
 const asyncLoading = ref(false)
-const buttonLoading = computed(() => asyncLoading || loading)
+const buttonLoading = computed(() => asyncLoading.value || loading)
 </script>
