@@ -1,15 +1,16 @@
 <template>
-  <button :class="buttonVariants({ variant, shape, size })">
-    <v-icon v-if="leftIcon && !buttonLoading" :name="leftIcon" />
-    <Spinner v-if="buttonLoading" />
-    <slot />
-    <v-icon v-if="rightIcon" :name="rightIcon" />
+  <button :class="buttonVariants({ size, shape, variant })" @click="_click" :disabled="_disabled">
+    <component :is="Spinner" v-if="_loading" />
+    <v-icon v-else :name="leftIcon" />
+    <component v-if="_loading && loadingText">{{ loadingText }}</component>
+    <slot v-else />
+    <v-icon :name="rightIcon" />
   </button>
 </template>
 
 <script setup lang="ts">
 import { VariantProps, cva } from "class-variance-authority"
-import { computed, ref } from "vue"
+import { ButtonHTMLAttributes, computed, ref, toRefs } from "vue"
 import Spinner from "./spinner.vue"
 
 const buttonVariants = cva("btn", {
@@ -48,15 +49,25 @@ type ButtonVariantProps = VariantProps<typeof buttonVariants>
 export interface ButtonProps {
   loading?: boolean
   loadingText?: string
-  size?: ButtonVariantProps["size"]
-  variant?: ButtonVariantProps["variant"]
-  shape?: ButtonVariantProps["shape"]
   leftIcon?: string
   rightIcon?: string
+  variant?: ButtonVariantProps["variant"]
+  shape?: ButtonVariantProps["shape"]
+  size?: ButtonVariantProps["size"]
+  onClick?: ButtonHTMLAttributes["onClick"]
+  disabled?: ButtonHTMLAttributes["disabled"]
 }
 
-const { variant, shape, size, loading } = defineProps<ButtonProps>()
-
+const props = defineProps<ButtonProps>()
+const { size, shape, variant, loading, loadingText, leftIcon, rightIcon } = toRefs(props)
 const asyncLoading = ref(false)
-const buttonLoading = computed(() => asyncLoading.value || loading)
+const _loading = computed(() => asyncLoading.value || loading.value)
+const _disabled = computed(() => _loading.value || props.disabled)
+
+async function _click(ev: MouseEvent) {
+  if (!props.onClick) return
+  asyncLoading.value = true
+  await props.onClick(ev)
+  asyncLoading.value = false
+}
 </script>
