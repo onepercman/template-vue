@@ -1,10 +1,10 @@
 <template>
   <button :class="buttonVariants({ size, shape, variant })" @click="_click" :disabled="_disabled">
     <component :is="Spinner" v-if="_loading" />
-    <v-icon v-else :name="leftIcon" />
+    <OhVueIcon v-else :name="leftIcon" />
     <component v-if="_loading && loadingText">{{ loadingText }}</component>
     <slot v-else />
-    <v-icon :name="rightIcon" />
+    <OhVueIcon :name="rightIcon" />
   </button>
 </template>
 
@@ -12,6 +12,7 @@
 import { VariantProps, cva } from "class-variance-authority"
 import { ButtonHTMLAttributes, computed, ref, toRefs } from "vue"
 import Spinner from "./spinner.vue"
+import { OhVueIcon } from "oh-vue-icons"
 
 const buttonVariants = cva("btn", {
   variants: {

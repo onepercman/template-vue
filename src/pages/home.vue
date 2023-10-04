@@ -8,13 +8,10 @@
 
 <script lang="tsx" setup>
 import { Button } from "@/libs/ui"
+import { sleep } from "@/utils/promise"
 import { ref } from "vue"
 
 const loading = ref(false)
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
 
 async function click() {
   await sleep(3000)
